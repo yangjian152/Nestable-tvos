@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/netinfo": "^6.0.0",
     "@react-navigation/native": "^5.9.0",
     "@react-navigation/stack": "^5.13.0",
     "@react-navigation/web": "^1.0.0-alpha.9",
+    "aws-amplify": "^3.3.25",
+    "aws-amplify-react-native": "^4.3.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "^0.63.4",
@@ -35,6 +38,18 @@
   },
   "alias": {
     "react-native": "react-native-web"
+  },
+  "jest": {
+    "preset": "react-native",
+    "testPathIgnorePatterns": [
+      "<rootDir>[/\\\\](dashboard-wip|scripts)[/\\\\]"
+    ],
+    "transformIgnorePatterns": [
+      "[/\\\\](node_modules|dashboard-wip|scripts)[/\\\\].+\\.(js|jsx)$"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>[/\\\\](build|docs|node_modules|deploy|dashboard-wip|scripts)[/\\\\]"
+    ]
   },
   "browserslist": {
     "production": [
