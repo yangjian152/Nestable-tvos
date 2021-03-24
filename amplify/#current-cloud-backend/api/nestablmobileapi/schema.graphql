@@ -1,0 +1,143 @@
+type PostMeta {
+  title: String
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+}
+
+type Video @model @searchable @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  user: UserProfile @connection(name: "UserSubmittedVideos")
+  videoUserId: ID
+  title: String!
+  description: String
+  keywords: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  videoFullPath: String
+  videoPromoPath: String
+  externalUrl: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+  categories: [VideoCategories] @connection(name: "VideoCategories")
+}
+
+type LikedVideo @model @searchable {
+  id: ID!
+  likedVideoUserId: ID
+  user: UserProfile! @connection
+  likedVideoVideoId: ID
+  video: Video! @connection
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type VideoCategories @model @searchable {
+  id: ID!
+  video: Video @connection(name: "VideoCategories")
+  videoCategoriesVideoId: ID
+  category: Category @connection
+  videoCategoriesCategoryId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+# type FeedItem {
+#   id: ID!
+#   video: Video
+#   displayOrder: Int
+# }
+
+type Feed @model {
+  id: ID!
+  item: Video
+  displayOrder: Int
+}
+
+type Story @model {
+  id: ID!
+  user: UserProfile @connection(name: "UserSubmittedStories")
+  title: String!
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+}
+
+type Category @model @searchable {
+  id: ID!
+  title: String!
+  displayOrder: Int
+  imageThumbnailPath: String
+  imageFullPath: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type UserProfile @searchable @model {
+  id: ID!
+  email: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  followerCount: Int
+  followingCount: Int
+  likesCount: Int
+  viewsCount: Int
+  name: String
+  description: String
+  poolId: String
+  following: [FollowingUser] @connection(name: "FollowedUsers")
+  submittedVideos: [Video] @connection(name: "UserSubmittedVideos")
+  submittedStories: [Story] @connection(name: "UserSubmittedStories")
+  hasSelectedCategories: Boolean
+  categories: [Category]
+  identityId: String
+  avatarPath: String
+  backgroundVideoPath: String
+  website: String
+  bio: String
+}
+
+type FollowingUser @model @searchable {
+  id: ID!
+  followedUser: UserProfile @connection(name: "FollowedUsers")
+  followingUserFollowedUserId: ID
+  followingUser: UserProfile
+  followingUserFollowingUserId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Mutation {
+  generateThumbnail(id: ID): String @function(name: "generateThumbnail-${env}")
+}
