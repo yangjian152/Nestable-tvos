@@ -1,0 +1,16 @@
+{
+    "permissions": {
+        "api": {
+            "nestablmobileapi": [
+                "read",
+                "update"
+            ]
+        },
+        "storage": {
+            "userVideos": [
+                "create",
+                "read"
+            ]
+        }
+    }
+}

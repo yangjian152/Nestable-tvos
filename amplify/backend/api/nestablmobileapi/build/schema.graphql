@@ -1,0 +1,1128 @@
+type PostMeta {
+  title: String
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+}
+
+type Video @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  user: UserProfile
+  videoUserId: ID
+  title: String!
+  description: String
+  keywords: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  videoFullPath: String
+  videoPromoPath: String
+  externalUrl: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+  categories(filter: ModelVideoCategoriesFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelVideoCategoriesConnection
+}
+
+type LikedVideo {
+  id: ID!
+  likedVideoUserId: ID
+  user: UserProfile!
+  likedVideoVideoId: ID
+  video: Video!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type VideoCategories {
+  id: ID!
+  video: Video
+  videoCategoriesVideoId: ID
+  category: Category
+  videoCategoriesCategoryId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Feed {
+  id: ID!
+  item: Video
+  displayOrder: Int
+}
+
+type Story {
+  id: ID!
+  user: UserProfile
+  title: String!
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+}
+
+type Category {
+  id: ID!
+  title: String!
+  displayOrder: Int
+  imageThumbnailPath: String
+  imageFullPath: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type UserProfile {
+  id: ID!
+  email: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  followerCount: Int
+  followingCount: Int
+  likesCount: Int
+  viewsCount: Int
+  name: String
+  description: String
+  poolId: String
+  following(filter: ModelFollowingUserFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelFollowingUserConnection
+  submittedVideos(filter: ModelVideoFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelVideoConnection
+  submittedStories(filter: ModelStoryFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelStoryConnection
+  hasSelectedCategories: Boolean
+  categories: [Category]
+  identityId: String
+  avatarPath: String
+  backgroundVideoPath: String
+  website: String
+  bio: String
+}
+
+type FollowingUser {
+  id: ID!
+  followedUser: UserProfile
+  followingUserFollowedUserId: ID
+  followingUser: UserProfile
+  followingUserFollowingUserId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Mutation {
+  generateThumbnail(id: ID): String
+  createVideo(input: CreateVideoInput!, condition: ModelVideoConditionInput): Video
+  updateVideo(input: UpdateVideoInput!, condition: ModelVideoConditionInput): Video
+  deleteVideo(input: DeleteVideoInput!, condition: ModelVideoConditionInput): Video
+  createLikedVideo(input: CreateLikedVideoInput!, condition: ModelLikedVideoConditionInput): LikedVideo
+  updateLikedVideo(input: UpdateLikedVideoInput!, condition: ModelLikedVideoConditionInput): LikedVideo
+  deleteLikedVideo(input: DeleteLikedVideoInput!, condition: ModelLikedVideoConditionInput): LikedVideo
+  createVideoCategories(input: CreateVideoCategoriesInput!, condition: ModelVideoCategoriesConditionInput): VideoCategories
+  updateVideoCategories(input: UpdateVideoCategoriesInput!, condition: ModelVideoCategoriesConditionInput): VideoCategories
+  deleteVideoCategories(input: DeleteVideoCategoriesInput!, condition: ModelVideoCategoriesConditionInput): VideoCategories
+  createFeed(input: CreateFeedInput!, condition: ModelFeedConditionInput): Feed
+  updateFeed(input: UpdateFeedInput!, condition: ModelFeedConditionInput): Feed
+  deleteFeed(input: DeleteFeedInput!, condition: ModelFeedConditionInput): Feed
+  createStory(input: CreateStoryInput!, condition: ModelStoryConditionInput): Story
+  updateStory(input: UpdateStoryInput!, condition: ModelStoryConditionInput): Story
+  deleteStory(input: DeleteStoryInput!, condition: ModelStoryConditionInput): Story
+  createCategory(input: CreateCategoryInput!, condition: ModelCategoryConditionInput): Category
+  updateCategory(input: UpdateCategoryInput!, condition: ModelCategoryConditionInput): Category
+  deleteCategory(input: DeleteCategoryInput!, condition: ModelCategoryConditionInput): Category
+  createUserProfile(input: CreateUserProfileInput!, condition: ModelUserProfileConditionInput): UserProfile
+  updateUserProfile(input: UpdateUserProfileInput!, condition: ModelUserProfileConditionInput): UserProfile
+  deleteUserProfile(input: DeleteUserProfileInput!, condition: ModelUserProfileConditionInput): UserProfile
+  createFollowingUser(input: CreateFollowingUserInput!, condition: ModelFollowingUserConditionInput): FollowingUser
+  updateFollowingUser(input: UpdateFollowingUserInput!, condition: ModelFollowingUserConditionInput): FollowingUser
+  deleteFollowingUser(input: DeleteFollowingUserInput!, condition: ModelFollowingUserConditionInput): FollowingUser
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelVideoConnection {
+  items: [Video]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelVideoFilterInput {
+  id: ModelIDInput
+  videoUserId: ModelIDInput
+  title: ModelStringInput
+  description: ModelStringInput
+  keywords: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  active: ModelBooleanInput
+  imageThumbnailPath: ModelStringInput
+  imageFullPath: ModelStringInput
+  imageListPath: ModelStringInput
+  videoFullPath: ModelStringInput
+  videoPromoPath: ModelStringInput
+  externalUrl: ModelStringInput
+  duration: ModelFloatInput
+  likeCount: ModelIntInput
+  nestablCount: ModelIntInput
+  viewCount: ModelIntInput
+  commentCount: ModelIntInput
+  shareCount: ModelIntInput
+  dislikeCount: ModelIntInput
+  and: [ModelVideoFilterInput]
+  or: [ModelVideoFilterInput]
+  not: ModelVideoFilterInput
+}
+
+type Query {
+  getVideo(id: ID!): Video
+  listVideos(filter: ModelVideoFilterInput, limit: Int, nextToken: String): ModelVideoConnection
+  getLikedVideo(id: ID!): LikedVideo
+  listLikedVideos(filter: ModelLikedVideoFilterInput, limit: Int, nextToken: String): ModelLikedVideoConnection
+  getVideoCategories(id: ID!): VideoCategories
+  listVideoCategoriess(filter: ModelVideoCategoriesFilterInput, limit: Int, nextToken: String): ModelVideoCategoriesConnection
+  getFeed(id: ID!): Feed
+  listFeeds(filter: ModelFeedFilterInput, limit: Int, nextToken: String): ModelFeedConnection
+  getStory(id: ID!): Story
+  listStorys(filter: ModelStoryFilterInput, limit: Int, nextToken: String): ModelStoryConnection
+  getCategory(id: ID!): Category
+  listCategorys(filter: ModelCategoryFilterInput, limit: Int, nextToken: String): ModelCategoryConnection
+  getUserProfile(id: ID!): UserProfile
+  listUserProfiles(filter: ModelUserProfileFilterInput, limit: Int, nextToken: String): ModelUserProfileConnection
+  getFollowingUser(id: ID!): FollowingUser
+  listFollowingUsers(filter: ModelFollowingUserFilterInput, limit: Int, nextToken: String): ModelFollowingUserConnection
+  searchVideos(filter: SearchableVideoFilterInput, sort: SearchableVideoSortInput, limit: Int, nextToken: String): SearchableVideoConnection
+  searchLikedVideos(filter: SearchableLikedVideoFilterInput, sort: SearchableLikedVideoSortInput, limit: Int, nextToken: String): SearchableLikedVideoConnection
+  searchVideoCategoriess(filter: SearchableVideoCategoriesFilterInput, sort: SearchableVideoCategoriesSortInput, limit: Int, nextToken: String): SearchableVideoCategoriesConnection
+  searchCategorys(filter: SearchableCategoryFilterInput, sort: SearchableCategorySortInput, limit: Int, nextToken: String): SearchableCategoryConnection
+  searchUserProfiles(filter: SearchableUserProfileFilterInput, sort: SearchableUserProfileSortInput, limit: Int, nextToken: String): SearchableUserProfileConnection
+  searchFollowingUsers(filter: SearchableFollowingUserFilterInput, sort: SearchableFollowingUserSortInput, limit: Int, nextToken: String): SearchableFollowingUserConnection
+}
+
+input CreateVideoInput {
+  id: ID
+  videoUserId: ID
+  title: String!
+  description: String
+  keywords: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  videoFullPath: String
+  videoPromoPath: String
+  externalUrl: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+}
+
+input UpdateVideoInput {
+  id: ID!
+  videoUserId: ID
+  title: String
+  description: String
+  keywords: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  videoFullPath: String
+  videoPromoPath: String
+  externalUrl: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+}
+
+input DeleteVideoInput {
+  id: ID
+}
+
+input ModelVideoConditionInput {
+  videoUserId: ModelIDInput
+  title: ModelStringInput
+  description: ModelStringInput
+  keywords: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  active: ModelBooleanInput
+  imageThumbnailPath: ModelStringInput
+  imageFullPath: ModelStringInput
+  imageListPath: ModelStringInput
+  videoFullPath: ModelStringInput
+  videoPromoPath: ModelStringInput
+  externalUrl: ModelStringInput
+  duration: ModelFloatInput
+  likeCount: ModelIntInput
+  nestablCount: ModelIntInput
+  viewCount: ModelIntInput
+  commentCount: ModelIntInput
+  shareCount: ModelIntInput
+  dislikeCount: ModelIntInput
+  and: [ModelVideoConditionInput]
+  or: [ModelVideoConditionInput]
+  not: ModelVideoConditionInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Subscription {
+  onCreateVideo: Video @aws_subscribe(mutations: ["createVideo"])
+  onUpdateVideo: Video @aws_subscribe(mutations: ["updateVideo"])
+  onDeleteVideo: Video @aws_subscribe(mutations: ["deleteVideo"])
+  onCreateLikedVideo: LikedVideo @aws_subscribe(mutations: ["createLikedVideo"])
+  onUpdateLikedVideo: LikedVideo @aws_subscribe(mutations: ["updateLikedVideo"])
+  onDeleteLikedVideo: LikedVideo @aws_subscribe(mutations: ["deleteLikedVideo"])
+  onCreateVideoCategories: VideoCategories @aws_subscribe(mutations: ["createVideoCategories"])
+  onUpdateVideoCategories: VideoCategories @aws_subscribe(mutations: ["updateVideoCategories"])
+  onDeleteVideoCategories: VideoCategories @aws_subscribe(mutations: ["deleteVideoCategories"])
+  onCreateFeed: Feed @aws_subscribe(mutations: ["createFeed"])
+  onUpdateFeed: Feed @aws_subscribe(mutations: ["updateFeed"])
+  onDeleteFeed: Feed @aws_subscribe(mutations: ["deleteFeed"])
+  onCreateStory: Story @aws_subscribe(mutations: ["createStory"])
+  onUpdateStory: Story @aws_subscribe(mutations: ["updateStory"])
+  onDeleteStory: Story @aws_subscribe(mutations: ["deleteStory"])
+  onCreateCategory: Category @aws_subscribe(mutations: ["createCategory"])
+  onUpdateCategory: Category @aws_subscribe(mutations: ["updateCategory"])
+  onDeleteCategory: Category @aws_subscribe(mutations: ["deleteCategory"])
+  onCreateUserProfile: UserProfile @aws_subscribe(mutations: ["createUserProfile"])
+  onUpdateUserProfile: UserProfile @aws_subscribe(mutations: ["updateUserProfile"])
+  onDeleteUserProfile: UserProfile @aws_subscribe(mutations: ["deleteUserProfile"])
+  onCreateFollowingUser: FollowingUser @aws_subscribe(mutations: ["createFollowingUser"])
+  onUpdateFollowingUser: FollowingUser @aws_subscribe(mutations: ["updateFollowingUser"])
+  onDeleteFollowingUser: FollowingUser @aws_subscribe(mutations: ["deleteFollowingUser"])
+}
+
+type ModelLikedVideoConnection {
+  items: [LikedVideo]
+  nextToken: String
+}
+
+input ModelLikedVideoFilterInput {
+  id: ModelIDInput
+  likedVideoUserId: ModelIDInput
+  likedVideoVideoId: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelLikedVideoFilterInput]
+  or: [ModelLikedVideoFilterInput]
+  not: ModelLikedVideoFilterInput
+}
+
+input CreateLikedVideoInput {
+  id: ID
+  likedVideoUserId: ID
+  likedVideoVideoId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateLikedVideoInput {
+  id: ID!
+  likedVideoUserId: ID
+  likedVideoVideoId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteLikedVideoInput {
+  id: ID
+}
+
+input ModelLikedVideoConditionInput {
+  likedVideoUserId: ModelIDInput
+  likedVideoVideoId: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelLikedVideoConditionInput]
+  or: [ModelLikedVideoConditionInput]
+  not: ModelLikedVideoConditionInput
+}
+
+type ModelVideoCategoriesConnection {
+  items: [VideoCategories]
+  nextToken: String
+}
+
+input ModelVideoCategoriesFilterInput {
+  id: ModelIDInput
+  videoCategoriesVideoId: ModelIDInput
+  videoCategoriesCategoryId: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelVideoCategoriesFilterInput]
+  or: [ModelVideoCategoriesFilterInput]
+  not: ModelVideoCategoriesFilterInput
+}
+
+input CreateVideoCategoriesInput {
+  id: ID
+  videoCategoriesVideoId: ID
+  videoCategoriesCategoryId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateVideoCategoriesInput {
+  id: ID!
+  videoCategoriesVideoId: ID
+  videoCategoriesCategoryId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteVideoCategoriesInput {
+  id: ID
+}
+
+input ModelVideoCategoriesConditionInput {
+  videoCategoriesVideoId: ModelIDInput
+  videoCategoriesCategoryId: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelVideoCategoriesConditionInput]
+  or: [ModelVideoCategoriesConditionInput]
+  not: ModelVideoCategoriesConditionInput
+}
+
+type ModelFeedConnection {
+  items: [Feed]
+  nextToken: String
+}
+
+input ModelFeedFilterInput {
+  id: ModelIDInput
+  displayOrder: ModelIntInput
+  and: [ModelFeedFilterInput]
+  or: [ModelFeedFilterInput]
+  not: ModelFeedFilterInput
+}
+
+input CreateFeedInput {
+  id: ID
+  displayOrder: Int
+}
+
+input UpdateFeedInput {
+  id: ID!
+  displayOrder: Int
+}
+
+input DeleteFeedInput {
+  id: ID
+}
+
+input ModelFeedConditionInput {
+  displayOrder: ModelIntInput
+  and: [ModelFeedConditionInput]
+  or: [ModelFeedConditionInput]
+  not: ModelFeedConditionInput
+}
+
+type ModelStoryConnection {
+  items: [Story]
+  nextToken: String
+}
+
+input ModelStoryFilterInput {
+  id: ModelIDInput
+  title: ModelStringInput
+  description: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  active: ModelBooleanInput
+  imageThumbnailPath: ModelStringInput
+  imageFullPath: ModelStringInput
+  imageListPath: ModelStringInput
+  duration: ModelFloatInput
+  likeCount: ModelIntInput
+  nestablCount: ModelIntInput
+  viewCount: ModelIntInput
+  commentCount: ModelIntInput
+  shareCount: ModelIntInput
+  dislikeCount: ModelIntInput
+  and: [ModelStoryFilterInput]
+  or: [ModelStoryFilterInput]
+  not: ModelStoryFilterInput
+}
+
+input CreateStoryInput {
+  id: ID
+  title: String!
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+  storyUserId: ID
+}
+
+input UpdateStoryInput {
+  id: ID!
+  title: String
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  active: Boolean
+  imageThumbnailPath: String
+  imageFullPath: String
+  imageListPath: String
+  duration: Float
+  likeCount: Int
+  nestablCount: Int
+  viewCount: Int
+  commentCount: Int
+  shareCount: Int
+  dislikeCount: Int
+  storyUserId: ID
+}
+
+input DeleteStoryInput {
+  id: ID
+}
+
+input ModelStoryConditionInput {
+  title: ModelStringInput
+  description: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  active: ModelBooleanInput
+  imageThumbnailPath: ModelStringInput
+  imageFullPath: ModelStringInput
+  imageListPath: ModelStringInput
+  duration: ModelFloatInput
+  likeCount: ModelIntInput
+  nestablCount: ModelIntInput
+  viewCount: ModelIntInput
+  commentCount: ModelIntInput
+  shareCount: ModelIntInput
+  dislikeCount: ModelIntInput
+  and: [ModelStoryConditionInput]
+  or: [ModelStoryConditionInput]
+  not: ModelStoryConditionInput
+}
+
+type ModelCategoryConnection {
+  items: [Category]
+  nextToken: String
+}
+
+input ModelCategoryFilterInput {
+  id: ModelIDInput
+  title: ModelStringInput
+  displayOrder: ModelIntInput
+  imageThumbnailPath: ModelStringInput
+  imageFullPath: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelCategoryFilterInput]
+  or: [ModelCategoryFilterInput]
+  not: ModelCategoryFilterInput
+}
+
+input CreateCategoryInput {
+  id: ID
+  title: String!
+  displayOrder: Int
+  imageThumbnailPath: String
+  imageFullPath: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateCategoryInput {
+  id: ID!
+  title: String
+  displayOrder: Int
+  imageThumbnailPath: String
+  imageFullPath: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteCategoryInput {
+  id: ID
+}
+
+input ModelCategoryConditionInput {
+  title: ModelStringInput
+  displayOrder: ModelIntInput
+  imageThumbnailPath: ModelStringInput
+  imageFullPath: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelCategoryConditionInput]
+  or: [ModelCategoryConditionInput]
+  not: ModelCategoryConditionInput
+}
+
+type ModelUserProfileConnection {
+  items: [UserProfile]
+  nextToken: String
+}
+
+input ModelUserProfileFilterInput {
+  id: ModelIDInput
+  email: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  followerCount: ModelIntInput
+  followingCount: ModelIntInput
+  likesCount: ModelIntInput
+  viewsCount: ModelIntInput
+  name: ModelStringInput
+  description: ModelStringInput
+  poolId: ModelStringInput
+  hasSelectedCategories: ModelBooleanInput
+  identityId: ModelStringInput
+  avatarPath: ModelStringInput
+  backgroundVideoPath: ModelStringInput
+  website: ModelStringInput
+  bio: ModelStringInput
+  and: [ModelUserProfileFilterInput]
+  or: [ModelUserProfileFilterInput]
+  not: ModelUserProfileFilterInput
+}
+
+input CreateUserProfileInput {
+  id: ID
+  email: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  followerCount: Int
+  followingCount: Int
+  likesCount: Int
+  viewsCount: Int
+  name: String
+  description: String
+  poolId: String
+  hasSelectedCategories: Boolean
+  identityId: String
+  avatarPath: String
+  backgroundVideoPath: String
+  website: String
+  bio: String
+}
+
+input UpdateUserProfileInput {
+  id: ID!
+  email: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  followerCount: Int
+  followingCount: Int
+  likesCount: Int
+  viewsCount: Int
+  name: String
+  description: String
+  poolId: String
+  hasSelectedCategories: Boolean
+  identityId: String
+  avatarPath: String
+  backgroundVideoPath: String
+  website: String
+  bio: String
+}
+
+input DeleteUserProfileInput {
+  id: ID
+}
+
+input ModelUserProfileConditionInput {
+  email: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  followerCount: ModelIntInput
+  followingCount: ModelIntInput
+  likesCount: ModelIntInput
+  viewsCount: ModelIntInput
+  name: ModelStringInput
+  description: ModelStringInput
+  poolId: ModelStringInput
+  hasSelectedCategories: ModelBooleanInput
+  identityId: ModelStringInput
+  avatarPath: ModelStringInput
+  backgroundVideoPath: ModelStringInput
+  website: ModelStringInput
+  bio: ModelStringInput
+  and: [ModelUserProfileConditionInput]
+  or: [ModelUserProfileConditionInput]
+  not: ModelUserProfileConditionInput
+}
+
+type ModelFollowingUserConnection {
+  items: [FollowingUser]
+  nextToken: String
+}
+
+input ModelFollowingUserFilterInput {
+  id: ModelIDInput
+  followingUserFollowedUserId: ModelIDInput
+  followingUserFollowingUserId: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelFollowingUserFilterInput]
+  or: [ModelFollowingUserFilterInput]
+  not: ModelFollowingUserFilterInput
+}
+
+input CreateFollowingUserInput {
+  id: ID
+  followingUserFollowedUserId: ID
+  followingUserFollowingUserId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateFollowingUserInput {
+  id: ID!
+  followingUserFollowedUserId: ID
+  followingUserFollowingUserId: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteFollowingUserInput {
+  id: ID
+}
+
+input ModelFollowingUserConditionInput {
+  followingUserFollowedUserId: ModelIDInput
+  followingUserFollowingUserId: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelFollowingUserConditionInput]
+  or: [ModelFollowingUserConditionInput]
+  not: ModelFollowingUserConditionInput
+}
+
+input SearchableStringFilterInput {
+  ne: String
+  gt: String
+  lt: String
+  gte: String
+  lte: String
+  eq: String
+  match: String
+  matchPhrase: String
+  matchPhrasePrefix: String
+  multiMatch: String
+  exists: Boolean
+  wildcard: String
+  regexp: String
+}
+
+input SearchableIDFilterInput {
+  ne: ID
+  gt: ID
+  lt: ID
+  gte: ID
+  lte: ID
+  eq: ID
+  match: ID
+  matchPhrase: ID
+  matchPhrasePrefix: ID
+  multiMatch: ID
+  exists: Boolean
+  wildcard: ID
+  regexp: ID
+}
+
+input SearchableIntFilterInput {
+  ne: Int
+  gt: Int
+  lt: Int
+  gte: Int
+  lte: Int
+  eq: Int
+  range: [Int]
+}
+
+input SearchableFloatFilterInput {
+  ne: Float
+  gt: Float
+  lt: Float
+  gte: Float
+  lte: Float
+  eq: Float
+  range: [Float]
+}
+
+input SearchableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input SearchableVideoFilterInput {
+  id: SearchableIDFilterInput
+  videoUserId: SearchableIDFilterInput
+  title: SearchableStringFilterInput
+  description: SearchableStringFilterInput
+  keywords: SearchableStringFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  active: SearchableBooleanFilterInput
+  imageThumbnailPath: SearchableStringFilterInput
+  imageFullPath: SearchableStringFilterInput
+  imageListPath: SearchableStringFilterInput
+  videoFullPath: SearchableStringFilterInput
+  videoPromoPath: SearchableStringFilterInput
+  externalUrl: SearchableStringFilterInput
+  duration: SearchableFloatFilterInput
+  likeCount: SearchableIntFilterInput
+  nestablCount: SearchableIntFilterInput
+  viewCount: SearchableIntFilterInput
+  commentCount: SearchableIntFilterInput
+  shareCount: SearchableIntFilterInput
+  dislikeCount: SearchableIntFilterInput
+  and: [SearchableVideoFilterInput]
+  or: [SearchableVideoFilterInput]
+  not: SearchableVideoFilterInput
+}
+
+enum SearchableSortDirection {
+  asc
+  desc
+}
+
+enum SearchableVideoSortableFields {
+  id
+  videoUserId
+  title
+  description
+  keywords
+  createdAt
+  updatedAt
+  active
+  imageThumbnailPath
+  imageFullPath
+  imageListPath
+  videoFullPath
+  videoPromoPath
+  externalUrl
+  duration
+  likeCount
+  nestablCount
+  viewCount
+  commentCount
+  shareCount
+  dislikeCount
+}
+
+input SearchableVideoSortInput {
+  field: SearchableVideoSortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchableVideoConnection {
+  items: [Video]
+  nextToken: String
+  total: Int
+}
+
+input SearchableLikedVideoFilterInput {
+  id: SearchableIDFilterInput
+  likedVideoUserId: SearchableIDFilterInput
+  likedVideoVideoId: SearchableIDFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  and: [SearchableLikedVideoFilterInput]
+  or: [SearchableLikedVideoFilterInput]
+  not: SearchableLikedVideoFilterInput
+}
+
+enum SearchableLikedVideoSortableFields {
+  id
+  likedVideoUserId
+  likedVideoVideoId
+  createdAt
+  updatedAt
+}
+
+input SearchableLikedVideoSortInput {
+  field: SearchableLikedVideoSortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchableLikedVideoConnection {
+  items: [LikedVideo]
+  nextToken: String
+  total: Int
+}
+
+input SearchableVideoCategoriesFilterInput {
+  id: SearchableIDFilterInput
+  videoCategoriesVideoId: SearchableIDFilterInput
+  videoCategoriesCategoryId: SearchableIDFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  and: [SearchableVideoCategoriesFilterInput]
+  or: [SearchableVideoCategoriesFilterInput]
+  not: SearchableVideoCategoriesFilterInput
+}
+
+enum SearchableVideoCategoriesSortableFields {
+  id
+  videoCategoriesVideoId
+  videoCategoriesCategoryId
+  createdAt
+  updatedAt
+}
+
+input SearchableVideoCategoriesSortInput {
+  field: SearchableVideoCategoriesSortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchableVideoCategoriesConnection {
+  items: [VideoCategories]
+  nextToken: String
+  total: Int
+}
+
+input SearchableCategoryFilterInput {
+  id: SearchableIDFilterInput
+  title: SearchableStringFilterInput
+  displayOrder: SearchableIntFilterInput
+  imageThumbnailPath: SearchableStringFilterInput
+  imageFullPath: SearchableStringFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  and: [SearchableCategoryFilterInput]
+  or: [SearchableCategoryFilterInput]
+  not: SearchableCategoryFilterInput
+}
+
+enum SearchableCategorySortableFields {
+  id
+  title
+  displayOrder
+  imageThumbnailPath
+  imageFullPath
+  createdAt
+  updatedAt
+}
+
+input SearchableCategorySortInput {
+  field: SearchableCategorySortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchableCategoryConnection {
+  items: [Category]
+  nextToken: String
+  total: Int
+}
+
+input SearchableUserProfileFilterInput {
+  id: SearchableIDFilterInput
+  email: SearchableStringFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  followerCount: SearchableIntFilterInput
+  followingCount: SearchableIntFilterInput
+  likesCount: SearchableIntFilterInput
+  viewsCount: SearchableIntFilterInput
+  name: SearchableStringFilterInput
+  description: SearchableStringFilterInput
+  poolId: SearchableStringFilterInput
+  hasSelectedCategories: SearchableBooleanFilterInput
+  identityId: SearchableStringFilterInput
+  avatarPath: SearchableStringFilterInput
+  backgroundVideoPath: SearchableStringFilterInput
+  website: SearchableStringFilterInput
+  bio: SearchableStringFilterInput
+  and: [SearchableUserProfileFilterInput]
+  or: [SearchableUserProfileFilterInput]
+  not: SearchableUserProfileFilterInput
+}
+
+enum SearchableUserProfileSortableFields {
+  id
+  email
+  createdAt
+  updatedAt
+  followerCount
+  followingCount
+  likesCount
+  viewsCount
+  name
+  description
+  poolId
+  hasSelectedCategories
+  identityId
+  avatarPath
+  backgroundVideoPath
+  website
+  bio
+}
+
+input SearchableUserProfileSortInput {
+  field: SearchableUserProfileSortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchableUserProfileConnection {
+  items: [UserProfile]
+  nextToken: String
+  total: Int
+}
+
+input SearchableFollowingUserFilterInput {
+  id: SearchableIDFilterInput
+  followingUserFollowedUserId: SearchableIDFilterInput
+  followingUserFollowingUserId: SearchableIDFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  and: [SearchableFollowingUserFilterInput]
+  or: [SearchableFollowingUserFilterInput]
+  not: SearchableFollowingUserFilterInput
+}
+
+enum SearchableFollowingUserSortableFields {
+  id
+  followingUserFollowedUserId
+  followingUserFollowingUserId
+  createdAt
+  updatedAt
+}
+
+input SearchableFollowingUserSortInput {
+  field: SearchableFollowingUserSortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchableFollowingUserConnection {
+  items: [FollowingUser]
+  nextToken: String
+  total: Int
+}

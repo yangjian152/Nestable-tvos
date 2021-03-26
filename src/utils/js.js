@@ -1,12 +1,11 @@
 const jsUtils = {
-  getRandomNumber: (min, max) =>
-    Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) +
-    Math.ceil(min),
+  getRandomNumber: (min, max) => Math.floor(
+    Math.random() * (Math.floor(max) - Math.ceil(min) + 1)
+  ) + Math.ceil(min),
   checkLTrim: (stringIn, checkFor) => {
     let output = '';
 
-    if (typeof stringIn === 'string' && stringIn.indexOf(checkFor) !== -1) {
-      // found
+    if (typeof stringIn === 'string' && (stringIn.indexOf(checkFor) !== -1)) { // found
       const tmp = stringIn.substr(0, checkFor.length);
 
       // eslint-disable-next-line eqeqeq
@@ -24,14 +23,13 @@ const jsUtils = {
   checkRTrim: (stringIn, checkFor) => {
     let output = '';
 
-    if (typeof stringIn === 'string' && stringIn.indexOf(checkFor) !== -1) {
-      // found
+    if (typeof stringIn === 'string' && (stringIn.indexOf(checkFor) !== -1)) { // found
       const startPoint = stringIn.length - checkFor.length;
       const tmp = stringIn.substr(startPoint, checkFor.length);
 
       // eslint-disable-next-line eqeqeq
       if (tmp == checkFor) {
-        output = stringIn.substr(0, stringIn.length - checkFor.length);
+        output = stringIn.substr(0, (stringIn.length - checkFor.length));
       } else {
         output = stringIn;
       }
@@ -41,23 +39,21 @@ const jsUtils = {
 
     return stringIn;
   },
-  excludeKeysFromObject: (obj, excludeKeys = []) =>
-    Object.keys(obj).reduce((acc, key) => {
-      if (!excludeKeys.includes(key)) {
-        acc[key] = obj[key];
-      }
-      return acc;
-    }, {}),
-  parseSubtext: (str, objs, nullRep) =>
-    str.replace(/\{([^"'].+?)\}/g, (m, key) => {
-      let repFail = typeof nullRep === 'undefined' ? objs[key] : nullRep;
+  excludeKeysFromObject: (obj, excludeKeys = []) => Object.keys(obj).reduce((acc, key) => {
+    if (!excludeKeys.includes(key)) {
+      acc[key] = obj[key]
+    }
+    return acc;
+  }, {}),
+  parseSubtext: (str, objs, nullRep) => str.replace(/\{([^"'].+?)\}/g, (m, key) => {
+    let repFail = typeof nullRep === 'undefined' ? objs[key] : nullRep;
 
-      if (typeof repFail === 'undefined') {
-        repFail = `{${key}}`;
-      }
+    if (typeof repFail === 'undefined') {
+      repFail = `{${key}}`;
+    }
 
-      return typeof objs[key] === 'undefined' ? repFail : objs[key];
-    }),
+    return typeof objs[key] === 'undefined' ? repFail : objs[key];
+  }),
   objectKeyType: (obj) => {
     if (typeof obj === 'boolean') {
       return '<Bool>';
@@ -75,12 +71,13 @@ const jsUtils = {
       return `<${obj.constructor.name}>`;
     }
 
-    return Object.keys(obj).reduce((acc, key) => {
-      acc[key] = jsUtils.objectKeyType(obj[key]);
+    return Object.keys(obj)
+      .reduce((acc, key) => {
+        acc[key] = jsUtils.objectKeyType(obj[key]);
 
-      return acc;
-    }, {});
-  },
+        return acc;
+      }, {});
+  }
 };
 
 export default jsUtils;

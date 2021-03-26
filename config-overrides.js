@@ -2,19 +2,15 @@
  * react-app-rewirred overrides for react-scripts
  */
 module.exports = {
-
   /**
    * Search for .web.js files
    */
   webpack: (config, env) => {
     config.resolve = {
       alias: {
-        'react-native$': 'react-native-web'
+        'react-native$': 'react-native-web',
       },
-      extensions: [
-        '.web.js',
-        '.js',
-      ],
+      extensions: ['.web.js', '.js'],
     };
     return config;
   },
@@ -28,6 +24,5 @@ module.exports = {
     paths.appHtml = paths.appPath + '/web/public/index.html';
     paths.appIndexJs = paths.appPath + '/web/index.js';
     return paths;
-  }
-
+  },
 };

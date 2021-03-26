@@ -1,9 +1,17 @@
+.bundle/config
+*.app.dSYM.zip
+
 # OSX
 #
 .DS_Store
 
 # Xcode
 #
+!**/*.xcodeproj
+!**/*.pbxproj
+!**/*.xcworkspacedata
+!**/*.xcsettings
+!**/*.xcscheme
 build/
 *.pbxuser
 !default.pbxuser
@@ -20,6 +28,15 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+project.xcworkspace
+
+# Gradle
+/build/
+/RNTester/android/app/build/
+/RNTester/android/app/gradle/
+/RNTester/android/app/gradlew
+/RNTester/android/app/gradlew.bat
+/ReactAndroid/build/
 
 # Android/IntelliJ
 #
@@ -34,9 +51,16 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
+.nvm
+/bots/node_modules/
+yarn.lock
 
 # BUCK
 buck-out/
+.buckd/
+/ReactAndroid/src/main/jni/prebuilt/lib/armeabi-v7a/
+/ReactAndroid/src/main/jni/prebuilt/lib/x86/
+/ReactAndroid/src/main/gen
 \.buckd/
 *.keystore
 !debug.keystore
@@ -51,10 +75,67 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
 
 # Bundle artifact
 *.jsbundle
 
-# CocoaPods
-/ios/Pods/
+#Watchman
+# .watchmanconfig
+
+# Test generated files
+/ReactAndroid/src/androidTest/assets/AndroidTestBundle.js
+*.js.meta
+
+/coverage
+/third-party
+
+# ReactCommon subdir shouldn't have Xcode project
+/ReactCommon/**/*.xcodeproj
+RNTester/build
+
+
+#amplify
+amplify/\#current-cloud-backend
+amplify/.config/local-*
+amplify/backend/amplify-meta.json
+amplify/backend/awscloudformation
+amplify/backend/function/generateThumbnail/src/ffmpeg
+ffmpeg.*.xz
+build/
+dist/
+node_modules/
 aws-exports.js
+awsconfiguration.json
+
+
+.vscode/.react
+/ios/Pods/
+
+# fastlane pem
+*.p12
+*.pem
+*.pkey
+*.p8
+
+
+android/app/src/debug
+ios/*/project.xcworkspace/*
+fastlane/.env*
+!fastlane/.env.sample
+android/app/src/main/assets/index.android.bundle
+
+# react-native-config codegen
+ios/tmp.xcconfig
+
+# android fonts get moved on build - don't clog the repo
+android/app/src/main/assets/fonts/**.ttf
+android/app/src/main/assets/fonts/*.ttf
+
+/aws-exports*.js
+
+!amplify/**/build
+
+amplify/mock-data

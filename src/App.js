@@ -5,6 +5,7 @@ import {navigationRef} from './Navigation';
 import AppProvider from './AppProvider';
 import Style from './styles/Style';
 import Content from './navigations';
+import client from '../configure';
 
 // Enable screens
 import {enableScreens} from 'react-native-screens';
@@ -12,7 +13,7 @@ enableScreens();
 
 const App = () => {
   return (
-    <AppProvider>
+    <AppProvider client={client}>
       <NavigationContainer ref={navigationRef}>
         <View style={styles.app}>
           {/* <Menu /> */}

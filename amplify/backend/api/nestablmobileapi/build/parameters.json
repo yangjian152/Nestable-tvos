@@ -1,0 +1,13 @@
+{
+    "CreateAPIKey": 0,
+    "AppSyncApiName": "nestablmobileapi",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authnestablemobile79006609",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-nestabl-uat-130100-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/fed28788ba704366dd2cbdbf29d70d496bb7edeb"
+}

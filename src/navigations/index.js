@@ -6,6 +6,8 @@ import {AppContext} from '../AppProvider';
 import {navigate} from '../Navigation';
 import HomeScreen from '../screens/main/HomeScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
+import {authUtils, navigationUtils} from '../utils';
+import {auth as authActions} from '../redux/actions';
 
 const Stack = createStackNavigator();
 
@@ -14,10 +16,22 @@ const Content = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  async function checkAuthentication() {
+    let currentUser = null;
+    console.log('login');
+    try {
+      currentUser = await authUtils.authCurrentUser();
+      console.log('user', currentUser);
+    } catch (e) {
+      console.log('error', e);
+    }
     if (!isAuthenticated) {
       navigate('login');
     }
-  }, []);
+  }
 
   return (
     <View

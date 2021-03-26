@@ -1,0 +1,7 @@
+{
+  "version": "2017-02-28",
+  "operation": "GetItem",
+  "key": #if( $modelObjectKey ) $util.toJson($modelObjectKey) #else {
+  "poolId": $util.dynamodb.toDynamoDBJson($ctx.args.poolId)
+} #end
+}
