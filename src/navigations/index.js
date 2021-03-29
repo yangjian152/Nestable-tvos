@@ -1,37 +1,16 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Style from '../styles/Style';
 import {AppContext} from '../AppProvider';
-import {navigate} from '../Navigation';
+
 import HomeScreen from '../screens/main/HomeScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
-import {authUtils, navigationUtils} from '../utils';
-import {auth as authActions} from '../redux/actions';
 
 const Stack = createStackNavigator();
 
 const Content = () => {
   const [appContext, setAppContext] = useContext(AppContext);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    checkAuthentication();
-  }, []);
-
-  async function checkAuthentication() {
-    let currentUser = null;
-    console.log('login');
-    try {
-      currentUser = await authUtils.authCurrentUser();
-      console.log('user', currentUser);
-    } catch (e) {
-      console.log('error', e);
-    }
-    if (!isAuthenticated) {
-      navigate('login');
-    }
-  }
 
   return (
     <View
@@ -40,7 +19,7 @@ const Content = () => {
         !appContext.menuVisible && styles.navigatorFullscreen,
       ]}>
       <Stack.Navigator
-        initialRouteName="home"
+        initialRouteName="login"
         detachInactiveScreens={true}
         screenOptions={{
           headerShown: false,

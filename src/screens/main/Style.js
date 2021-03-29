@@ -21,9 +21,9 @@ const Style = {
 };
 
 Style.styles = StyleSheet.create({
-  right: {
+  container: {
     backgroundColor: Style.backgroundColor,
-    width: Style.px(1520),
+    width: Style.px(1920),
     height: Style.px(1080),
     flex: 1,
     flexDirection: 'column',

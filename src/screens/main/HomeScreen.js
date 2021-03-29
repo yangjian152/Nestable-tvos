@@ -4,7 +4,7 @@ import Style from './Style';
 
 const Home = () => {
   return (
-    <View style={Style.styles.right}>
+    <View style={Style.styles.container}>
       <View style={Style.styles.header}>
         <Text style={Style.styles.headerText}>{'React Native TV Demos'}</Text>
       </View>
