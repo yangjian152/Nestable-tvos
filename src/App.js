@@ -9,6 +9,7 @@ import client from '../configure';
 import {authUtils, navigationUtils} from './utils';
 import {auth as authActions} from './redux/actions';
 import store from './redux';
+import {Provider} from 'react-redux';
 import {navigate} from './Navigation';
 
 // Enable screens
@@ -35,12 +36,14 @@ const App = () => {
   }
   return (
     <AppProvider client={client}>
-      <NavigationContainer ref={navigationRef}>
-        <View style={styles.app}>
-          {/* <Menu /> */}
-          <Content />
-        </View>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer ref={navigationRef}>
+          <View style={styles.app}>
+            {/* <Menu /> */}
+            <Content />
+          </View>
+        </NavigationContainer>
+      </Provider>
     </AppProvider>
   );
 };

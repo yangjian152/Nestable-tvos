@@ -1,9 +1,8 @@
 import {Dimensions} from 'react-native';
 
 const {height, width} = Dimensions.get('window');
-const RatioH = height / 667;
-const RatioW = width / 375;
-const isIphone8 = height === 667 && width === 375;
+const RatioH = height / 650;
+const RatioW = width / 1920;
 
 const defaultTheme = {
   sectionBackgroundColor: '#FFFFFF',
@@ -97,7 +96,19 @@ const defaultTheme = {
     H: height,
     W: width,
   },
-  isIphone8,
+  video: {
+    width: '100%',
+    height: '100%',
+    zIndex: 0,
+    position: 'absolute',
+    opacity: 0.5,
+  },
+  videoMain: {
+    width: '100%',
+    height: '100%',
+    zIndex: 0,
+    position: 'absolute',
+  },
 };
 
 export default defaultTheme;

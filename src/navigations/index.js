@@ -19,7 +19,7 @@ const Content = () => {
         !appContext.menuVisible && styles.navigatorFullscreen,
       ]}>
       <Stack.Navigator
-        initialRouteName="login"
+        initialRouteName="home"
         detachInactiveScreens={true}
         screenOptions={{
           headerShown: false,

@@ -29,16 +29,7 @@ const FocusableHighlight = forwardRef((props, ref) => {
         if (props.onBlur) {
           props.onBlur(event);
         }
-      }}
-      style={[
-        props.style,
-        focused && {
-          backgroundColor: props.underlayColor,
-          opacity: props.activeOpacity,
-        },
-        focused && props.styleFocused,
-        pressed && props.stylePressed,
-      ]}>
+      }}>
       {props.children || <View />}
     </TouchableHighlight>
   );

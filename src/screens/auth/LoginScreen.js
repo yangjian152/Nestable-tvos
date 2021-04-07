@@ -18,12 +18,7 @@ import videoSource from '../../assets/videos/NSTBL-Teaser-NoAudio.mp4';
 import {Images, Theme} from '../../theme';
 import {FocusableHighlight} from '../../components';
 import {Auth} from 'aws-amplify';
-import {
-  validatorUtils,
-  authUtils,
-  navigationUtils,
-  graphqlFetchUtils,
-} from '../../utils';
+import {validatorUtils, authUtils} from '../../utils';
 import {auth as authActions, ui as uiActions} from '../../redux/actions';
 import {navigate} from '../../Navigation';
 
@@ -79,7 +74,7 @@ const LoginScreen = (props) => {
   return (
     <View style={styles.container}>
       <Video
-        style={styles.video}
+        style={Theme.video}
         source={videoSource}
         repeat
         resizeMode={'cover'}
@@ -197,13 +192,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     opacity: 0.9,
     backgroundColor: Theme.colors.Black,
-  },
-  video: {
-    width: '100%',
-    height: '100%',
-    zIndex: 0,
-    position: 'absolute',
-    opacity: 0.5,
   },
   header: {
     width: '100%',
