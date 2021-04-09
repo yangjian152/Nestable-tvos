@@ -39,6 +39,15 @@ Style.styles = StyleSheet.create({
     alignItems: 'center',
     opacity: 0.8,
   },
+  wrapperHide: {
+    backgroundColor: Style.backgroundColor,
+    width: '100%',
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0,
+  },
   header: {
     width: Style.px(1520),
     height: Style.px(100),

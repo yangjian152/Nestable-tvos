@@ -96,6 +96,13 @@ const defaultTheme = {
     H: height,
     W: width,
   },
+  image: {
+    width: '100%',
+    height: '100%',
+    zIndex: 0,
+    position: 'absolute',
+    resizeMode: 'cover',
+  },
   video: {
     width: '100%',
     height: '100%',

@@ -36,6 +36,7 @@ const Images = {
   nestablWelcome06: require('../assets/img/nestabl_welcome6.png'),
 
   tipBG: require('../assets/img/tip-bg.jpg'),
+  appIcon: require('../assets/img/appicon.jpg'),
 };
 
 export default Images;

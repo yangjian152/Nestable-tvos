@@ -11,8 +11,8 @@ const FocusableHighlight = forwardRef((props, ref) => {
       ref={ref}
       onPress={(event) => {
         if (event.eventKeyAction !== undefined) {
-          setPressed(parseInt(event.eventKeyAction) === 0);
-          if (props.onPress) {
+          setPressed(event.eventKeyAction === 0);
+          if (props.onPress && event.eventKeyAction === 0) {
             props.onPress(event);
           }
         }

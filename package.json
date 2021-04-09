@@ -22,6 +22,7 @@
     "aws-amplify-react-native": "^4.3.2",
     "aws-appsync": "^3.0.3",
     "aws-sdk": "^2.665.0",
+    "lodash": "^4.17.21",
     "promise.allsettled": "^1.0.2",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
