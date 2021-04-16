@@ -5,6 +5,8 @@ const RatioH = height / 650;
 const RatioW = width / 1920;
 
 const defaultTheme = {
+  height,
+  width,
   sectionBackgroundColor: '#FFFFFF',
   sectionBackgroundAltColor: '#000000',
   padding: {
@@ -74,7 +76,7 @@ const defaultTheme = {
     ThinItalic: 'Montserrat-ThinItalic',
   },
   fontSize: {
-    h1: 32 * RatioH,
+    h1: 36 * RatioH,
     h2: 28 * RatioH,
     h3: 24 * RatioH,
     h4: 22 * RatioH,

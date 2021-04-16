@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Image, ActivityIndicator, TextInput} from 'react-native';
+import {View, Image, ActivityIndicator} from 'react-native';
 import {Storage} from 'aws-amplify';
 import {connect} from 'react-redux';
 import {feed as feedActions} from '../../redux/actions';
@@ -8,6 +8,8 @@ import {Images, Theme} from '../../theme';
 import Video from 'react-native-video';
 import Description from './Description';
 import Controller from './Controller';
+import ProgressBar from './ProgressBar';
+import Timeline from './Timeline';
 import {graphqlFetchUtils} from '../../utils';
 import {videoService} from '../../services';
 
@@ -55,18 +57,14 @@ const Home = (props) => {
     });
   };
 
-  const handleShow = () => {
+  const toggleShow = () => {
     if (noAction) {
-      setIsShow(false);
+      setIsShow(!isShow);
     }
   };
 
   const handleFocus = (status) => {
-    setIsShow(true);
     setFocusStatus(status);
-    setTimeout(() => {
-      handleShow();
-    }, 8000);
   };
 
   const handleNext = () => {
@@ -96,7 +94,6 @@ const Home = (props) => {
   const onLoad = (payload) => {
     setDuration(payload.duration);
   };
-
   return (
     <View style={Style.styles.container}>
       {loading ? (
@@ -117,8 +114,14 @@ const Home = (props) => {
           />
           <View
             style={isShow ? Style.styles.wrapper : Style.styles.wrapperHide}>
-            {videoData && videoData.content && <Description data={videoData} />}
-            {!!currentTime && (
+            {videoData && videoData.content && (
+              <Description
+                data={videoData}
+                handleFocus={handleFocus}
+                toggleShow={toggleShow}
+              />
+            )}
+            <View style={Style.styles.controller}>
               <Controller
                 focusStatus={focusStatus}
                 handleFocus={handleFocus}
@@ -126,10 +129,14 @@ const Home = (props) => {
                 handleNext={handleNext}
                 handlePlay={handlePlay}
                 paused={paused}
-                duration={duration}
-                currentTime={currentTime}
               />
-            )}
+              {!!currentTime && (
+                <ProgressBar duration={duration} currentTime={currentTime} />
+              )}
+              {!!currentTime && (
+                <Timeline duration={duration} currentTime={currentTime} />
+              )}
+            </View>
           </View>
         </>
       )}

@@ -37,6 +37,10 @@ const Images = {
 
   tipBG: require('../assets/img/tip-bg.jpg'),
   appIcon: require('../assets/img/appicon.jpg'),
+  skipNext: require('../assets/img/skip_next.png'),
+  skipPrev: require('../assets/img/skip_previous.png'),
+  pause: require('../assets/img/pause.png'),
+  playCircle: require('../assets/img/play_circle.png'),
 };
 
 export default Images;

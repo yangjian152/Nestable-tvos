@@ -7,9 +7,6 @@ if (Platform.OS === 'web') {
   pixelRatio = 1;
 }
 
-// Screen height
-let height = 1080;
-
 const Style = {
   backgroundColor: '#001113',
   modalBackgroundColor: '#444c58',
@@ -17,14 +14,14 @@ const Style = {
   buttonFocusedColor: '#fff',
   buttonPressedColor: '#ccc',
   px: (size) => {
-    return Math.round((size * (height / 1080)) / pixelRatio);
+    return Math.round((size * (Theme.height / 1080)) / pixelRatio);
   },
 };
 
 Style.styles = StyleSheet.create({
   container: {
-    width: Style.px(1920),
-    height: Style.px(1080),
+    width: Theme.width,
+    height: Theme.height,
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -35,9 +32,8 @@ Style.styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    opacity: 0.8,
+    opacity: 0.9,
   },
   wrapperHide: {
     backgroundColor: Style.backgroundColor,
@@ -49,19 +45,29 @@ Style.styles = StyleSheet.create({
     opacity: 0,
   },
   header: {
-    width: Style.px(1520),
-    height: Style.px(100),
+    width: '80%',
+    height: 100,
     justifyContent: 'center',
     alignItems: 'flex-start',
     paddingVertical: Theme.padding.pad6,
   },
   image: {
-    width: Style.px(250),
-    height: Style.px(53),
+    width: 150,
+    height: 30,
+  },
+  iconStyle: {
+    width: 30,
+    height: 30,
+    tintColor: Theme.colors.White,
+  },
+  iconStyleActive: {
+    width: 30,
+    height: 30,
+    tintColor: Theme.colors.Teal,
   },
   content: {
-    width: Style.px(1520),
-    height: Style.px(500),
+    width: '80%',
+    height: 500,
     flex: 0.5,
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -87,25 +93,25 @@ Style.styles = StyleSheet.create({
     paddingBottom: Theme.padding.pad3,
   },
   controller: {
-    width: Style.px(1520),
-    height: Style.px(60),
+    width: '80%',
+    height: 60,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    marginTop: 40,
   },
   buttonGroup: {
     width: '15%',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   button: {
-    margin: Style.px(10),
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: Style.px(20),
+    fontSize: 20,
   },
   progress: {
     width: '70%',
